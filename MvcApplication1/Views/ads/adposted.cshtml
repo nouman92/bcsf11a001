@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Views/Shared/user.cshtml";
+    ViewBag.title = "Success Ad Posted";
+}
+<div id="innerLayout">
+    <div class="wrapper">
+        <div class="content">
+            <div class="stuffed zi3 rel">
+                <div class="clr margintop10 info successbox tcenter br3">
+                    <p class="xxx-large lheight24">Thank you for posting your Ad!</p>
+                </div>
+                <ul class="paylinks brtop-1 margintop30 tcenter x-large color-1">
+                    <li><a class="button br3 wide"
+                        href="/ads/viewad?id=@(ViewBag.id)&username=@(ViewBag.username)"><span
+                            class="cfff">View Ad</span> </a></li>
+                </ul>
+                <ul class="paylinks line margintop30 tcenter x-large color-1">
+                    <li><a class="tdnone pding0" id="addAnotherAd" href="/ads/newad?username=@(ViewBag.username)"><span
+                        class="color-1"><span class="link"><span>Submit another
+Ad</span></span></span> </a></li>
+                </ul>
+                <ul class="paylinks line margintop30 tcenter x-large color-1">
+                    <li><a class="tdnone pding0" id="confirmBackToMainPage" href="/ads/myads?username=@(ViewBag.username)"><span
+                        class="link nowrap"><span>Go to main page</span></span> </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

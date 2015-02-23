@@ -1,0 +1,80 @@
+﻿@model MvcApplication1.Models.user
+@{
+    Layout = "~/Views/Shared/user.cshtml";
+    ViewBag.title = "User Messages";
+}
+<div class="wrapper clr">
+    <div class="clr" id="usertabs">
+        <div class="pageinfo margintop20 marginbott20">
+            <h2 class="x-large fbold lheight20">My Messages</h2>
+            <p class="small">Messages regarding your Ads and replies from other </p>
+        </div>
+        <div class="clr"></div>
+        <ul class="tabs2 clr">
+            <li class="fleft"><a class="fleft tab link" href="/ads/myads?username=@(ViewBag.username)""><span
+                class="fbold">Ads</span> </a></li>
+            <li class="fleft"><span class="fleft tab rel selected"><span
+                class="fbold">Messages</span> </span></li>
+            <li class="fleft"><a class="fleft tab link" id="se_accountShop" href="/user/settings?username=@(ViewBag.username)""><span class="fbold">Settings</span> </a></li>
+        </ul>
+    </div>
+</div>
+<section class="container" id="body-container">
+    <div class="wrapper">
+        <div class="content">
+            <div class="subnav2 clr">
+                <ul class="x-normal breaklist lheight20 fleft {type:''}" id="globalLinks">
+                    <li class="fleft rel selected"><span class="fbold">Inbox</span><span class="abs icon dnone">&nbsp;</span></li>
+                    <li class="fleft rel"><a class="fbold" href="/user/deleted?username=@(ViewBag.username)">Archive</a> <span class="abs icon dnone">&nbsp;</span> </li>
+                </ul>
+            </div>
+            <div class="emptyads answers  rel">
+                @if (Model.messages.Count != 0)
+                {
+                    <table style="border: #999 medium solid;">
+                        <thead>
+                            <tr style="border: #666 medium solid">
+                                <th width="200">
+                                    <h1>From </h1>
+                                </th>
+                                <th width="400">
+                                    <h1>Message</h1>
+                                </th>
+                                <th width="200">
+                                    <h1>Archive </h1>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (MvcApplication1.Models.message msg in Model.messages)
+                            {
+                                if (msg.deleted != true)
+                                {
+                                <tr>
+                                    <td width="200">
+                                        <h3>@msg.from</h3>
+                                    </td>
+                                    <td width="400"><a href="/user/show_message?id=@(msg.id)&username=@(ViewBag.username)">
+                                        <h2 style="margin: 7px;">@msg.message1 </h2>
+                                    </a></td>
+                                    <td width="200">
+                                        <a style="float: left" href="/user/reply_message?id=@(msg.id)&username=@(ViewBag.username)">Reply</a>
+                                        <a style="float: left" href="/user/archiev?id=@(msg.id)&username=@(ViewBag.username)">Archive</a></td>
+                                </tr>
+                                }
+                            }
+                        </tbody>
+
+                    </table>
+                }
+                else
+                {
+                    <div class="inner tcenter">
+                        <h3 class="x-large2 lheight24">No messages</h3>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

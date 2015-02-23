@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.title = "Setting saved";
+}
+@{
+    Layout = "~/Views/Shared/user.cshtml";
+}
+<h1>your Prefered settings are saved now</h1>
+<h2>@Html.ActionLink("return back", "/settings",new{ username=@ViewBag.username })</h2>

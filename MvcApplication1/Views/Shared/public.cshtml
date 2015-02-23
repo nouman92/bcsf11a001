@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>@ViewBag.title</title>
+    <meta http-equiv="Content-Language" content="en">
+    <script type="text/javascript">jQuery.noConflict();</script>
+    <link rel="stylesheet" type="text/css" href="/content/style.css">
+    <script src="../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+    @RenderSection("scriptforregistration", false)
+    @RenderSection("scriptsforsetting", false)
+    @RenderSection("index_page", false)
+
+</head>
+<body class="offersview standard smallscreen">
+
+    <header id="header-container">
+        <div class="navi">
+            <div class="wrapper clr rel">
+                <a href="#" class="icon prevpagelanding"></a><a id="postNewAdLink" class="postnewlink fbold tdnone" href="/Account/Login"><span>Submit an Ad</span> </a><a href="~/"><span class="slogan">Pakistan's Largest   Marketplace</span> </a>
+                <ul class="userbox fright marginleft10">
+                    <li class="hidden inlblk nowrap rel vtop" id="observed-counter"><a href="#" class="tdnone inlblk hidden" id="observed-ads-link" title="Favorites"><span class="icon inlblk favin vtop"></span><strong class="counter"></strong></a><a href="/observed/search/" class="tdnone inlblk hasObservedAds?'hidden':''}" id="observed-search-link" title="Favorites"><span class="icon inlblk favin vtop"></span><strong class="counter"></strong></a></li>
+                    <li class="inlblk nowrap vtop noslash" id="my-account-link">
+                        <div class="inlblk rel"><a href="/Account/Login" class="tdnone" id="topLoginLink"><span class="icon inlblk accountshape vtop"></span><span class="link inlblk"><strong>My Account</strong></span> </a></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    @RenderBody();
+
+    <footer id="footer-container"></footer>
+</body>
+</html>
+<!-- olxin-wrk-03 -->

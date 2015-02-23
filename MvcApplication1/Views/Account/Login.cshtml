@@ -1,0 +1,76 @@
+@model MvcApplication1.Models.user
+@{
+    ViewBag.title = "User Login Form";
+    Layout = "~/Views/Shared/public.cshtml";
+}
+
+<section id="body-container">
+    <div class="wrapper">
+        <div class="content clr rel">
+            <div class="stuffed">
+                <div class="accessgrid ">
+                    <h2 class="large fbold c62 marginbott10">Log in</h2>
+                    <div class="accessbox bre3 br4 rel">
+                        <div class="inner">
+                            @using (Html.BeginForm("validdate", "account", FormMethod.Post, new { @class = "default access login margintop15" }))
+                            {
+                                <fieldset class="rel">
+                                    <div class="fblock clr rel ">
+                                        <div class="label fleft c000 fbold tright">
+                                             @Html.LabelFor(m => m.username)
+                                         </div>
+                                        <div class="area clr">
+                                            <div class="fleft rel focusbox">
+                                                @Html.TextBoxFor(m => m.username, new { maxlength = 50 ,@class = "text x-normal light br4 required" })
+                                                <span class="status icon vmiddle inlblk dnone"></span>
+                                                 @Html.ValidationMessageFor(m => m.username)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fblock clr rel ">
+                                        <div class="label fleft c000 fbold tright">
+                                            @Html.LabelFor(m => m.password)
+                                        </div>
+                                        <div class="area clr">
+                                            <div class="fleft rel focusbox">
+                                                @Html.PasswordFor(m => m.password, new { maxlength = 50, value = ViewBag.Selpwd , @class = "text x-normal light br4 required" })
+                                                <span class="status icon vmiddle inlblk dnone"></span>
+                                                 @Html.ValidationMessageFor(m => m.password)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fblock clr tcenter margintop7">
+                                        <div class="label fleft c000 fbold"></div>
+                                        <div class="area with-button">
+                                            <p class="bgf3 br5 box clr">
+                                                <span class="button big cfff br3 default x-large">
+                                                    <input class="cfff" value="Log in" id="se_userLogin" type="submit">
+                                                </span>
+                                            </p>
+                                            <p class="fleft"><small><a id="newpassword" class="link" href="/Account/newpassword"><span>Forgot Password?</span> </a></small></p>
+                                            <p class="fright"><small><a class="register-link link" href="/Account/Newaccount"><span>New user? Register here</span> </a></small></p>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                              }
+                        </div>
+                    </div>
+                    <div class="accessbox bre3 br4 rel tcenter">
+                        <table class="types fixed tcenter" width="100%" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td valign="top">
+                                        <div class="space">
+                                            <p class="margin10_0">Log in using your Facebook account</p>
+                                            <div class="fb x-small margin10_0"><a href="#">Log in using Facebook </a></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

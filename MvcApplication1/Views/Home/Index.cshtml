@@ -1,0 +1,132 @@
+﻿@model List<MvcApplication1.Models.ad>
+@{
+    if (Session["user"] == null)
+    {
+        Layout = "~/Views/Shared/public.cshtml";
+        ViewBag.title = "Offline Shopping";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/user.cshtml";
+        ViewBag.username = ((MvcApplication1.Models.user)(Session["user"])).username;
+        ViewBag.title = "Offline Shopping";
+    }
+}
+@section index_page{
+<script>
+    $(function () {
+        $('#go').on('click', function () {
+            debugger;
+              @foreach (MvcApplication1.Models.ad a in Model)
+              {
+                   <text>
+            $("#div@(a.Id)").hide();
+                 </text>
+              }
+            var city = $("#user1_addre_city").val();
+            var catagory = $("#catagory").val();
+            var name = $("#name").val();
+            @foreach (MvcApplication1.Models.ad a in Model)
+            {
+                var city1 = a.user1.addre.city;
+                var catagory1 = a.catagory;
+                var name1 = a.title;
+                 <text>
+            if ((city == '@city1' || city == '0') && (catagory == '@catagory1' || catagory == '0') && (name == '@city1' || name.replace(/^\s+/, '').replace(/\s+$/, '') === '')) {
+                $("#div@(a.Id)").show();
+                 }
+                 </text>
+            }
+        });
+        });
+</script>
+}
+<div id="header-container" >
+    <div id="searchbox">
+        <div class="wrapper">
+            <form method="POST" action="" class="search clr" id="mainTopSearch">
+                <fieldset>
+                    <div class="clr rel" id="withshowbox">
+                        <table id="withshowboxTable" cellpadding="0" cellspacing="0" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td valign="top" width="33%">
+                                        <p class="td-label">Select your locaton and view local Ads</p>
+                                        <div class="locationrequest smallBox">
+                                            <div class="clr rel">
+                                                <div class="rel fleft input-container">
+                                                    @Html.DropDownListFor(m => m.First().user1.addre.city, new SelectList(ViewBag.cities, "ID", "Name", ViewBag.SelCity), new { @class = "light br3 ", style = "width:250px", name = "city" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td valign="top" width="33%">
+                                        <p class="td-label">Browse Categories</p>
+                                        <div class="rel combospace smallBox">
+                                            <div class="clr rel">
+                                                <div class="rel fleft input-container">
+                                                   @Html.DropDownListFor(m => m.First().catagory, new SelectList(ViewBag.catagory, "ID", "Type", ViewBag.SelCatagory), new { @class = "light br3 ", style = "width:250px", name = "catagory" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td valign="top" width="33%">
+                                        <p class="td-label">Search for a specific product</p>
+                                        <div class="rel combospace smallBox">
+                                            <div class="clr rel">
+                                                <div class="rel fleft input-container">
+                                                    <input type="text" name="name" id="name"/>
+                                                </div>
+                                                <div class="rel fleft input-container">
+                                                    <input type="button" name="Go" value="Go" id="go"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="listContainer">
+    <section id="body-container" class="container">
+        <div class="wrapper">
+            <div class="content">
+                <div class="rel listHandler ">
+                     <ul class="gallerywide clr normal " id="gallerywide2">
+                         </ul>
+                    <ul class="gallerywide clr normal " id="gallerywide">
+                        @foreach (MvcApplication1.Models.ad a in Model)
+                        {
+                            <li class=" tleft rel fleft " id="div@(a.Id)">
+                                <div class="mheight tcenter">
+                                    <a href="/home/viewad?id=@(a.Id)&username=@(a.user)" class="galleryImage thumb vmiddle ">
+                                        @if (@a.image == null)
+                                        {
+                                            <img width="200px" height="200px" src="/images/no_pic_available.jpg" />
+                                        }
+                                        else
+                                        {
+                                            <img width="200px" height="200px"  src="@(a.image)"/>
+                                        }
+                                    </a>
+                                </div>
+                                <div class="inner brkword">
+                                    <div class="clr">
+                                        <h4 class="normal"><a href="/home/viewad?id=@(a.Id)&username=@(a.user)"><span>@a.title</span> </a></h4>
+                                    </div>
+                                    <p class="lheight14 color-1 margintop3"><span class="breadcrumb small">@a.catagory1.type >><span>@a.user1.addre.city1.name</span> </span></p>
+                                </div>
+                            </li>
+
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

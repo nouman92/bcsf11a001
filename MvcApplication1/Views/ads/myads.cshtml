@@ -1,0 +1,80 @@
+﻿@model MvcApplication1.Models.user
+@{
+    Layout = "~/Views/Shared/user.cshtml";
+    ViewBag.title = "My Ads";
+}
+
+<div class="wrapper clr">
+    <div class="clr" id="usertabs">
+        <div class="pageinfo margintop20 marginbott20">
+            <h2 class="x-large fbold lheight20">Your Ads</h2>
+            <p class="small">Here you can See your active and in active ads and can delete/modify them</p>
+        </div>
+        <div class="clr"></div>
+        <ul class="tabs2 clr">
+            <li class="fleft"><span class="fleft tab selected"><span
+                class="fbold">Ads</span> </span></li>
+            <li class="fleft"><a class="fleft tab tdnone rel" id="se_accountAnswers" href="/user/messages?username=@(ViewBag.username)" ><span
+                class="link fbold"><span>Messages</span></span> </a></li>
+            <li class="fleft"><a class="fleft tab link" href="/user/settings?username=@(ViewBag.username)"><span
+                class="fbold">Settings</span></a> </li>
+        </ul>
+    </div>
+</div>
+<section class="container" id="body-container">
+    <div class="wrapper">
+        <div class="content pdingbott0">
+            <div class="subnav2 clr">
+                <ul class="x-normal breaklist lheight20 fleft {type:'active'}"
+                    id="globalLinks">
+                    <li class="fleft rel selected" id="typeactive"><span class="fbold">Active</span> <span class="counter fnormal"></span><span
+                        class="abs icon dnone">&nbsp;</span></li>
+                    <li class="fleft rel" id="typearchive"><a class="fbold" href="/ads/inactive?username=@(ViewBag.username)">Inactive </a><span class="abs icon dnone">&nbsp;</span> </li>
+                </ul>
+            </div>
+            
+                @if (Model.ads.Count == 0)
+                {
+                <div class="emptyads rel" id="noAdsBlock">
+                    <div class="inner tcenter">
+                        <h3 class="x-large2 lheight24">You don't have active Ads. Place an ad now!</h3>
+                        <div class="margintop15"><a class="button big4 br3 add cfff large rel" href="/ads/newad?username=@(ViewBag.username)"><span>Submit an Ad</span></a> </div>
+                    </div>
+                    </div>
+                }
+                else
+                {
+                     <div class="emptyads rel">
+                    <table style="border:#999 medium solid;">
+                        <thead>
+                            <tr style="border:#666 medium solid">
+                                <th width="200"><h2>date</h2> </th>
+                                <th width="300"><h2>Ad Title</h2> </th>
+                                <th width="200"><h2>Deactivation</h2> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (MvcApplication1.Models.ad ads in Model.ads)
+                            {
+                                 if(ads.activity == true)
+                                {
+                                <tr>
+                                    <td width="200"><h3>@ads.date</h3> </td>
+                                    <td width="300"><a href="/ads/viewad?id=@(ads.Id)&username=@(ViewBag.username)">
+                                        <h2 style="margin:10px;">@ads.title </h2></a></td>
+                                    <td width="200">
+                                        <a  style="float: left" href="/ads/edit?id=@(ads.Id)&username=@(ViewBag.username)">Edit </a> 
+                                        <a  style="float: left" href="/ads/deactivate?id=@(ads.Id)&username=@(ViewBag.username)">Deactivate</a>
+                                    </td>
+                                </tr>
+                            }
+                            }
+                            
+                        </tbody>
+                    </table>
+                         </div>
+                }
+
+        </div>
+    </div>
+</section>

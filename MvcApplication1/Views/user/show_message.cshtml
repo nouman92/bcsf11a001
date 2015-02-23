@@ -1,0 +1,36 @@
+﻿@model MvcApplication1.Models.message
+@{
+    Layout = "~/Views/Shared/user.cshtml";
+    ViewBag.title = "Message";
+}
+<div class="wrapper clr">
+    <section class="container" id="body-container">
+        <div class="wrapper">
+            <div class="content">
+                <div class="emptyads answers  rel">
+                <table width="520" border="1">
+                    <tr>
+                        <td width="100" class = "light br3">From</td>
+                        <td width="500" class = "light br3">@Model.from</td>
+                    </tr>
+                    <tr>
+                        <td width="100" class = "light br3">Subject</td>
+                        <td width="500" class = "light br3">Ads Related</td>
+                    </tr>
+                    <tr>
+                        <td width="100" class = "light br3">Message</td>
+                        <td width="500" class = "light br3">@Model.message1</td>
+                    </tr>
+                    <tr>
+                        <td width="100"></td>
+                        <td width="500">
+                            <a  style="margin:10px" href="/user/messages?username=@(ViewBag.username)">Back</a>
+                            <a  style="margin:10px" href="/user/delete?id=@(Model.id)&username=@(ViewBag.username)" >Delete</a>
+                        </td>
+                    </tr>
+                </table>
+                    </div>
+            </div>
+        </div>
+    </section>
+</div>

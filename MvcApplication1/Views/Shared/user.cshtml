@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>@ViewBag.title</title>
+    <meta http-equiv="Content-Language" content="en">
+    <script type="text/javascript">jQuery.noConflict();</script>
+    <link rel="stylesheet" type="text/css" href="/content/style.css">
+    <script src="../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+    <script>
+        function showmenue() {
+            $("#userLoginBox").removeClass("userbox-dd abs br5 nowrap hidden").addClass("userbox-dd abs br5 nowrap");
+        }
+        function hidemenue() {
+            $("#userLoginBox").removeClass("userbox-dd abs br5 nowrap").addClass("userbox-dd abs br5 nowrap hidden");
+        }
+
+    </script>
+    @RenderSection("scriptforregistration", false)
+    @RenderSection("scriptsforsetting", false)
+    @RenderSection("index_page", false)
+</head>
+<body>
+    <header id="header-container">
+        <div class="navi">
+            <div class="wrapper clr rel">
+                <a class="postnewlink fbold tdnone" id="postNewAdLink" href="/ads/newad?username=@(ViewBag.username)"><span>Submit an Ad</span> </a>
+                <a href="~/"><span class="slogan">Pakistan's Largest   Marketplace</span> </a>
+                <ul class="userbox fright marginleft10" id="linktoopen">
+                    <li class="inlblk nowrap vtop noslash" id="my-account-link">
+                        <div class="inlblk rel">
+                            <a class="tdnone" id="topLoginLink" on onclick="showmenue(this)" ><span
+                                class="icon inlblk accountshape vtop"></span><span
+                                    class="link inlblk"><strong>@ViewBag.username</strong></span> <span
+                                        class="vmiddle inlblk icon mini arrowthindown"></span></a>
+                            <div class="userbox-dd abs br5 nowrap hidden" id="userLoginBox"  onclick="hidemenue(this)">
+                                <h5 class="rel">My Account:<span class="icon mini abs accountitems"></span> </h5>
+                                <ul>
+                                    <li><a class="tdnone" id="login-box-ads" href="/ads/myads?username=@(ViewBag.username)" ><span>Ads     </span></a></li>
+                                    <li><a class="tdnone rel" id="login-box-answers" href="/user/messages?username=@(ViewBag.username)" ><span>Messages</span></a> </li>
+                                    <li><a class="link fbold" id="login-box-settings" href="/user/settings?username=@(ViewBag.username)" ><span>Settings</span></a> </li>
+                                </ul>
+                                <ul class="last">
+                                    <li class="rel"><a class="tdnone" id="login-box-logout" href="/account/Logout?username=@(ViewBag.username)" ><span
+                                        class="link fbold"><span>Log out</span></span><span class="icon mini abs power"></span> </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section class="container" id="body-container">@RenderBody();</section>
+    <footer id="footer-container"></footer>
+</body>
+</html>

@@ -1,0 +1,303 @@
+﻿@model MvcApplication1.Models.user
+@{
+    Layout = "~/Views/Shared/user.cshtml";
+    ViewBag.title = "User Settings";
+}
+@section scriptsforsetting
+{
+<script type="text/jscript">
+    $('#Error_message').hide();
+    $(function () {
+        $('#Error_message').hide();
+        $('#addre_Country1_Id').change(function () {
+            //  debugger;
+            var id = $("#addre_Country1_Id :selected").val();
+            if (id != 0) {
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("StateList", "account")',
+                    data: { "mCountry": id },
+                    dataType: "json",
+                    beforeSend: function () {
+                        //  alert(id);
+                    },
+                    success: function (data) {
+                        var items = "";
+                        $.each(data, function (i, state) {
+                            items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
+                        });
+                        $('#addre_state1_Id').html(items);
+
+                    },
+                    error: function (result) {
+
+                        alert('Service call failed: ' + result.status + ' Type :' + result.statusText);
+                    }
+                });
+            }
+            else {
+                var items = '<option value="">Select</option>';
+                $('#addre_state1_Id').html(items);
+            }
+        });
+
+        $('#addre_state1_Id').change(function () {
+            // debugger;
+            var id = $("#addre_state1_Id :selected").val();
+            if (id != 0) {
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("CityList", "account")',
+                    data: { "mState": id },
+                    dataType: "json",
+                    beforeSend: function () {
+                        //  alert(id);
+                    },
+                    success: function (data) {
+                        var items = "";
+                        $.each(data, function (i, city) {
+                            items += "<option value='" + city.Value + "'>" + city.Text + "</option>";
+                        });
+                        $('#addre_city1_Id').html(items);
+
+                    },
+                    error: function (result) {
+
+                        alert('Service call failed: ' + result.status + ' Type :' + result.statusText);
+                    }
+                });
+            }
+            else {
+                var items = '<option value="0">Select</option>';
+                $('#addre_city1_Id').html(items);
+            }
+        });        
+    $("#PasswordForm").submit(function(event) {
+        debugger;
+        var pass = $("#password").val();
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("checkpass", "user")',
+                data: {         
+                    "pass": pass
+                },
+                    dataType: "json",
+                    beforeSend: function () {
+                        alert(pass + "   " + user);
+                    },
+                    success: function (data) {
+                        if (data == false) {
+                            event.preventDefault(); // if you want to disable the action
+                            return false;
+                            alert("false");
+                            $('#Error_message').show();
+                        }
+                        else
+                            alert("true");
+                    },
+                    error: function (result) {
+                        alert('Service call failed: ' + result.status + ' Type :' + result.statusText);
+                    }
+                });
+          });
+
+    });
+ </script>
+}
+<div class="wrapper clr">
+    <div class="clr" id="usertabs">
+        <div class="pageinfo margintop20 marginbott20">
+            <h2 class="x-large fbold lheight20">Account settings</h2>
+            <p class="small">Here you can change your account settings</p>
+        </div>
+        <div class="clr"></div>
+        <ul class="tabs2 clr">
+            <li class="fleft"><a class="fleft tab link" href="/ads/myads?username=@(ViewBag.username)"><span
+                class="fbold">Ads</span> </a></li>
+            <li class="fleft"><a class="fleft tab tdnone rel" id="se_accountAnswers" href="/user/messages?username=@(ViewBag.username)"><span
+                class="link fbold"><span>Messages</span></span> </a></li>
+            <li class="fleft"><span class="fleft tab selected"><span
+                class="fbold">Settings</span> </span></li>
+        </ul>
+    </div>
+</div>
+<section class="container" id="body-container">
+    <div class="wrapper">
+        <div class="content settingspage">
+            <h2 class="headlinebox separate pding10 bgf3 x-large fbold">
+                <a title="Change contact details" class="icon-slide slidedown tdnone" id="se_changeDefault" href="#">
+                <span class="hvline">Change contact details</span> <span class="icon mini vmiddle down">&nbsp;</span> </a></h2>
+            <form class=" default settings" id="changeDefaultContact" action="/user/personal_details" method="post">
+                <input type="hidden" name="username" value="@(ViewBag.username)" />
+                <div class="clr pding10_0 brbott-6">
+                    <fieldset class="fleft part45">
+                        <legend></legend>
+                          <div class="fblock clr">
+                            <div class="label">
+                                <label class="fbold c000">Country</label>
+                            </div>
+                            <div class="area clr">
+                                <div class="focusbox smallshadow fleft">
+                                   @Html.DropDownListFor(m => m.addre.Country1.Id, new SelectList(ViewBag.Country, "ID", "Name", ViewBag.SelCountry), new { @class = "light br3 ", style = "width:310px", name = "country" })
+                                   <p class="desc"><small></small></p>
+                                    @Html.ValidationMessageFor(m => m.addre.Country1.Id)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fblock clr">
+                            <div class="label">
+                                <label class="fbold c000">State</label>
+                            </div>
+                            <div class="area clr">
+                                <div class="focusbox smallshadow fleft">
+                                    @Html.DropDownListFor(m => m.addre.state1.Id, new SelectList(ViewBag.State, "ID", "Name", ViewBag.SelState), new { @class = "light br3 ", style = "width:310px", name = "state" })
+                                     @Html.ValidationMessageFor(m => m.addre.state1)
+                                    <p class="desc"><small></small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fblock clr" id="subregion-select-block">
+                            <div class="label">
+                                <label class="fbold c000">City</label>
+                            </div>
+                            <div class="area clr">
+                                <div class="focusbox smallshadow fleft">
+                                     @Html.DropDownListFor(m => m.addre.city1.Id, new SelectList(ViewBag.City, "ID", "Name", ViewBag.SelCity), new { style = "width:310px", name = "city" })
+                                     @Html.ValidationMessageFor(m => m.addre.city1.Id)
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <fieldset>
+                    <div class="fblock clr">
+                        <div class="label marginbott5">
+                            <label class="fbold c000">Name</label>
+                        </div>
+                        <div class="area clr">
+                            <div class="focusbox smallshadow fleft">
+                                 @Html.TextBoxFor(m => m.name, new { maxlength = 50, @class = "light br3" , value="@Model.name"})
+                                 <p class="desc"><small></small></p>
+                                @Html.ValidationMessageFor(m => m.name)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fblock clr">
+                        <div class="label marginbott5">
+                            <label class="fbold c000">Phone</label>
+                        </div>
+                        <div class="area clr">
+                            <div class="focusbox smallshadow fleft">
+                                 @Html.TextBoxFor(m => m.phone, new { maxlength = 15 ,value="@Model.phone",@class="text medium long light br4"})
+                                <p class="desc"><small></small></p>
+                                 @Html.ValidationMessageFor(m => m.phone)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fblock">
+                        <p>
+                            <span
+                                class="button br3 large">
+                                <input class="cfff" type="submit" value="Save">
+                            </span>
+                        </p>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <h2 class="headlinebox separate pding10 bgf3 x-large fbold">
+            <span class="hvline">Change password</span>
+            <span class="icon mini vmiddle down">&nbsp;</span>
+        </h2>
+        <div class="layer brf3 pding10" >
+            <form class=" default settings" id="PasswordForm" action="/user/change_pass" method="post">
+                <input type="hidden" name="username" value="@(ViewBag.username)" />
+                <fieldset>
+                    <legend></legend>
+                    <div class="fblock clr">
+                        <div class="label marginbott5">
+                            <label class="fbold c000">
+                                Old password<span class="cc914">*</span>
+                            </label>
+                        </div>
+                        <div class="area clr">
+                            <div class="focusbox smallshadow fleft">
+                                 @Html.PasswordFor(m => m.password, new { maxlength = 50, value = ViewBag.Selpwd, @class = "light br3" })
+                                <span class="status icon vmiddle inlblk dnone"></span>
+                                @Html.ValidationMessageFor(m => m.password)
+                                <div id="Error_message" >password does not match</div>
+                                <p class="desc"><small></small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fblock clr">
+                        <div class="label marginbott5">
+                            <label class="fbold c000">
+                                new password<span class="cc914">*</span></label>
+                        </div>
+                        <div class="area clr">
+                            <div class="focusbox smallshadow fleft">
+                                 @Html.PasswordFor(m => m.password2, new { maxlength = 50, value = ViewBag.Selpwd, @class = "light br3" })
+                                <span class="status icon vmiddle inlblk dnone"></span>
+                                @Html.ValidationMessageFor(m => m.password2)
+                               
+                                <p class="desc"><small></small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fblock">
+                        <p>
+                            <span class="button br3 large">
+                                <input class="cfff" id="passwordInput" type="submit" value="Change password">
+                            </span>
+                        </p>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <h2 class="headlinebox separate pding10 bgf3 x-large fbold"><span
+                class="hvline">Change email</span><span
+                    class="icon mini vmiddle down">&nbsp;</span> </h2>
+        <div class="layer brf3 pding10" >
+            <form class=" default settings" id="changeemailForm" action="/user/change_email" method="post">
+                <fieldset>
+                    <legend></legend>
+                    <div class="fblock clr">
+                        <div class="label marginbott5">
+                            <label class="fbold c000">New email</label>
+                        </div>
+                        <div class="area clr">
+                            <div class="focusbox smallshadow fleft">
+                                <input type="hidden" name="username" value="@(ViewBag.username)" />
+                                @Html.TextBoxFor(m => m.email, new { maxlength = 30, @class = "light br3" })
+                                 @Html.ValidationMessageFor(m => m.email)
+                                <span class="status icon vmiddle dnone">&nbsp;</span>
+                                <p class="desc"><small></small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fblock">
+                        <p>
+                            <span class="button br3 large">
+                                <input class="cfff" id="mailSubmit" type="submit" value="Save">
+                            </span>
+                        </p>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <h2 class="headlinebox separate pding10 bgf3 x-large fbold"><span
+                class="hvline">Delete account</span><span
+                    class="icon mini vmiddle down">&nbsp;</span> </h2>
+        <div class="layer brf3 pding10 tcenter" >
+            <div class="margin20_0">
+                <p>
+                    <a class="button br3 alert big cfff large deleteaccount" id="deleteAccount" href="#"><span>Delete account</span> </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,74 @@
+﻿@model MvcApplication1.Models.user
+@{
+    Layout = "~/Views/Shared/user.cshtml";
+    ViewBag.title = "Inactive Ads";
+}
+    <div class="wrapper clr">
+  <div class="clr" id="usertabs">
+        <div class="pageinfo margintop20 marginbott20">
+      <h2 class="x-large fbold lheight20">Account settings</h2>
+      <p class="small">Here you can change your account settings</p>
+    </div>
+        <div class="clr"></div>
+        <ul class="tabs2 clr">
+      <li class="fleft"><span class="fleft tab selected"><span
+                class="fbold">Ads</span> </span></li>
+      <li class="fleft"><a class="fleft tab tdnone rel" id="se_accountAnswers" href="/user/messages?username=@(ViewBag.username)" ><span
+                class="link fbold"><span>Messages</span></span> </a></li>
+      <li class="fleft"><a class="fleft tab link" href="/user/settings?username=@(ViewBag.username)"><span
+                class="fbold">Settings</span></a> </li>
+    </ul>
+      </div>
+</div>
+    <section class="container" id="body-container">
+  <div class="wrapper">
+        <div class="content pdingbott0">
+      <div class="subnav2 clr">
+            <ul class="x-normal breaklist lheight20 fleft {type:'active'}"
+                    id="globalLinks">
+          <li class="fleft rel " id="typeactive"><a class="fbold" href="/ads/myads?username=@(ViewBag.username)">Active</a> <span class="counter fnormal"></span><span
+                        class="abs icon dnone">&nbsp;</span></li>
+          <li class="fleft rel selected" id="typearchive"><span class="fbold">Inactive </span><span class="abs icon dnone">&nbsp;</span> </li>
+        </ul>
+          </div>
+      <div class="emptyads rel" id="noAdsBlock"> @if(Model.ads.Count == 0)
+            {
+            <div class="inner tcenter">
+          <h3 class="x-large2 lheight24">You don't have active Ads. Place an ad now!</h3>
+          <div class="margintop15"> <a class="button big4 br3 add cfff large rel" href="/ads/newad?username=@(ViewBag.username)"><span>Submit an Ad</span></a> </div>
+        </div>
+            }else{
+             
+                    <table style="border:#999 medium solid;">
+                        <thead>
+                            <tr style="border:#666 medium solid">
+                                <th width="200"><h2>date</h2> </th>
+                                <th width="300"><h2>Ad Title</h2> </th>
+                                <th width="200"><h2>Activation</h2> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (MvcApplication1.Models.ad ads in Model.ads)
+                            {
+                                if(ads.activity == false)
+                                {
+                                <tr>
+                                    <td width="200"><h3>@ads.date</h3> </td>
+                                    <td width="300"><a href="/ads/viewad?id=@(ads.Id)">
+                                        <h2 style="margin:10px;">@ads.title </h2></a></td>
+                                    <td width="200">
+                                       <a  style="float: left" href="/ads/delete?id=@(ads.Id)&username=@(ViewBag.username)">Delete</a> 
+                                        <a style="float: left" href="/ads/activate?id=@(ads.Id)&username=@(ViewBag.username)">Activate</a>
+                                   
+                                    </td>
+                                </tr>
+                            }
+                            }
+
+                        </tbody>
+                    </table>
+                        
+            } </div>
+    </div>
+      </div>
+</section>

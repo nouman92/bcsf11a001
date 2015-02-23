@@ -1,0 +1,90 @@
+@model MvcApplication1.Models.ad
+@{
+    Layout = "~/Views/Shared/user.cshtml";
+    ViewBag.title = "Edit Your AD";
+}
+<div class="wrapper">
+    <form novalidate enctype="multipart/form-data" id="newOffer" class="tablica55 default adding flat-style-form publish" method="post" action="/ads/editpost">
+      <div class="clr">
+        <h1 class="c000 x-large pding10 rel fleft"> Submit an Ad </h1>
+          <input type="hidden" name="username" value="@(ViewBag.username)" />
+          <input type="hidden" name="id" value="@(Model.Id)" />
+      </div>
+      <div id="title" class="fblock clr active">
+        <div class="fleft label tright">
+                         @Html.LabelFor(m => m.title, new { @class = "validation fbold c000" })
+        </div>
+        <div class="area clr">
+          <div class="fleft rel zi2 focusbox">
+                    @Html.TextBoxFor(m => m.title, new { maxlength = 35,value="@(m.title)", @class = "text x-normal light br4 xxx-long2" })
+                    <span class="status icon vmiddle inlblk dnone">&nbsp;</span>
+                    @Html.ValidationMessageFor(m => m.title)
+                </div>
+        </div>
+      </div>
+      <div id="categories" class="fblock clr pdingright0 catSelector3">
+        <div class="fleft label tright">
+                @Html.LabelFor(m => m.catagory1, new { @class = "fbold c000" })
+               </div>
+        <div class="area clr">
+          <div class="fleft rel margintop15">
+            <div class="h100 table">
+              <div id="category-breadcrumb-container" class="vmiddle"> <span id="catgory-breadcrumb-text" class="color-3 fbold"></span>
+                @Html.DropDownListFor(m => m.catagory1.Id, new SelectList(ViewBag.Catagory, "ID", "Type", ViewBag.SelCatagory), new { style = "width:310px" }) 
+                <a id="choose-category-ilu" class="abs icon choosecat_ab_3 inlblk tdnone" >&nbsp;</a> 
+               </div>
+               @Html.ValidationMessageFor(m => m.catagory1.Id)
+            </div>
+            
+          </div>
+        </div>
+      </div>
+     
+   
+       
+      <div class="fblock clr" id="description">
+       <div class="fleft label tright">
+                @Html.LabelFor(m => m.description, new { @class = "fbold c000" })
+                <!--    <label class="validation fbold c000" for="add-description">Ad Description<span class="cc914">*</span></label> -->
+            </div>
+        <div class="area clr">
+         <div class="fleft rel focusbox">
+                    @Html.TextAreaFor(m => m.description, new { maxlength = 500, value="@(m.description)" , @class = "x-normal light required br4 {maxtext:4096, mintext:10}", style = "height: 140px; width: 400px; resize: none; overflow-y: hidden;", cols = "80", rows = "1", placeholder = "Mention features, defects, reason for selling, warranty and product USP" })
+                    <!--  <textarea name="description" class="x-normal light required br4 {maxtext:4096, mintext:10}" id="add-description" style="height: 140px; width: 400px; resize: none; overflow-y: hidden;" cols="80" rows="1" placeholder="Mention features, defects, reason for selling, warranty and product USP"></textarea> -->
+                    <span class="status icon vtop inlblk dnone">&nbsp;</span>
+                    @Html.ValidationMessageFor(m => m.description)
+                </div>
+                </div>
+      </div>
+      
+      <div style="position: relative;" class="fblock clr" id="gallery">
+        <div class="fleft label rel tright"> <a name="photos"></a>
+          <label class="validation fbold c000">Upload Photos</label>
+          <small class="desc block lheight14">Ads with photos <span>sell faster</span> </small> <span class="margintop5 icon photoslabel block abs"></span> </div>
+        <div class="area clr">
+          <div class="fleft clr rel focusbox">
+            <ul class="photos-show-mini clr ui-sortable">
+              <li style="z-index: 0;" id="add-file-1" class="fleft empty rel first-child   {slot: 1}">
+                <div class="br5"> <a href="javascript:void(0);" class="block" title="Add photo"> <span class="icon margin0_a rel add2 block">Add photo</span> </a> </div>
+              </li>
+            </ul>
+            
+           
+          </div>
+        </div>
+        <div class="plupload html5" style="position: absolute; background: none repeat scroll 0% 0% transparent; width: 0px; height: 0px; overflow: hidden; z-index: -1; opacity: 0; top: 0px; left: 0px;" id="p19c4cv9kfvnq192n1bp7sue1qaun_html5_container"></div>
+      </div>
+    
+      <fieldset class="brtope5 margintop5">
+        <div class="fblock clr rel">
+          <div class="submittarget abs icon"></div>
+          <ul class="navi clr">
+            <li class="fright submitspace"> <span class="button big4 br3 large">
+              <input class="cfff" value="Save Changes" id="save" type="submit">
+              </span> </li>
+            <li class="hidden fright progress">Processing</li>
+          </ul>
+        </div>
+      </fieldset>
+    </form>
+  </div>

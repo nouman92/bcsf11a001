@@ -1,0 +1,597 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="addres" EntityType="Model.Store.addres" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ads" EntityType="Model.Store.ads" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="catagory" EntityType="Model.Store.catagory" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="cities" EntityType="Model.Store.cities" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Countries" EntityType="Model.Store.Countries" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="messages" EntityType="Model.Store.messages" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="state" EntityType="Model.Store.state" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="user" EntityType="Model.Store.user" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_addres_ToTable" Association="Model.Store.FK_addres_ToTable">
+            <End Role="cities" EntitySet="cities" />
+            <End Role="addres" EntitySet="addres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_addres_ToTable_1" Association="Model.Store.FK_addres_ToTable_1">
+            <End Role="state" EntitySet="state" />
+            <End Role="addres" EntitySet="addres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_addres_ToTable_2" Association="Model.Store.FK_addres_ToTable_2">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="addres" EntitySet="addres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ads_ToTable" Association="Model.Store.FK_ads_ToTable">
+            <End Role="user" EntitySet="user" />
+            <End Role="ads" EntitySet="ads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ads_ToTable_1" Association="Model.Store.FK_ads_ToTable_1">
+            <End Role="catagory" EntitySet="catagory" />
+            <End Role="ads" EntitySet="ads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cities_ToTable" Association="Model.Store.FK_cities_ToTable">
+            <End Role="state" EntitySet="state" />
+            <End Role="cities" EntitySet="cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_messages_ToTable" Association="Model.Store.FK_messages_ToTable">
+            <End Role="user" EntitySet="user" />
+            <End Role="messages" EntitySet="messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_state_ToTable" Association="Model.Store.FK_state_ToTable">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="state" EntitySet="state" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_ToTable" Association="Model.Store.FK_user_ToTable">
+            <End Role="addres" EntitySet="addres" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="addres">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="street" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="city" Type="int" />
+          <Property Name="state" Type="int" />
+          <Property Name="country" Type="int" />
+        </EntityType>
+        <EntityType Name="ads">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="image" Type="varchar" MaxLength="50" />
+          <Property Name="date" Type="date" />
+          <Property Name="activity" Type="bit" Nullable="false" />
+          <Property Name="user" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="catagory" Type="int" />
+        </EntityType>
+        <EntityType Name="catagory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="cities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="state" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="messages">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="from" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="message" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="user" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="deleted" Type="bit" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="state">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="country" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="phone" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="email" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="username" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="password" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="address" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_addres_ToTable">
+          <End Role="cities" Type="Model.Store.cities" Multiplicity="0..1" />
+          <End Role="addres" Type="Model.Store.addres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="addres">
+              <PropertyRef Name="city" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_addres_ToTable_1">
+          <End Role="state" Type="Model.Store.state" Multiplicity="0..1" />
+          <End Role="addres" Type="Model.Store.addres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="state">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="addres">
+              <PropertyRef Name="state" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_addres_ToTable_2">
+          <End Role="Countries" Type="Model.Store.Countries" Multiplicity="0..1" />
+          <End Role="addres" Type="Model.Store.addres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="addres">
+              <PropertyRef Name="country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ads_ToTable">
+          <End Role="user" Type="Model.Store.user" Multiplicity="1" />
+          <End Role="ads" Type="Model.Store.ads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="ads">
+              <PropertyRef Name="user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ads_ToTable_1">
+          <End Role="catagory" Type="Model.Store.catagory" Multiplicity="0..1" />
+          <End Role="ads" Type="Model.Store.ads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="catagory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ads">
+              <PropertyRef Name="catagory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cities_ToTable">
+          <End Role="state" Type="Model.Store.state" Multiplicity="1" />
+          <End Role="cities" Type="Model.Store.cities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="state">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cities">
+              <PropertyRef Name="state" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_messages_ToTable">
+          <End Role="user" Type="Model.Store.user" Multiplicity="1" />
+          <End Role="messages" Type="Model.Store.messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="messages">
+              <PropertyRef Name="user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_state_ToTable">
+          <End Role="Countries" Type="Model.Store.Countries" Multiplicity="1" />
+          <End Role="state" Type="Model.Store.state" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="state">
+              <PropertyRef Name="country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_ToTable">
+          <End Role="addres" Type="Model.Store.addres" Multiplicity="1" />
+          <End Role="user" Type="Model.Store.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="addres">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="address" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="addres" EntityType="Model.addre" />
+          <EntitySet Name="ads" EntityType="Model.ad" />
+          <EntitySet Name="catagories" EntityType="Model.catagory" />
+          <EntitySet Name="cities" EntityType="Model.city" />
+          <EntitySet Name="Countries" EntityType="Model.Country" />
+          <EntitySet Name="messages" EntityType="Model.message" />
+          <EntitySet Name="states" EntityType="Model.state" />
+          <EntitySet Name="users" EntityType="Model.user" />
+          <AssociationSet Name="FK_addres_ToTable" Association="Model.FK_addres_ToTable">
+            <End Role="cities" EntitySet="cities" />
+            <End Role="addres" EntitySet="addres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_addres_ToTable_1" Association="Model.FK_addres_ToTable_1">
+            <End Role="state" EntitySet="states" />
+            <End Role="addres" EntitySet="addres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_addres_ToTable_2" Association="Model.FK_addres_ToTable_2">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="addres" EntitySet="addres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_ToTable" Association="Model.FK_user_ToTable">
+            <End Role="addres" EntitySet="addres" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ads_ToTable" Association="Model.FK_ads_ToTable">
+            <End Role="user" EntitySet="users" />
+            <End Role="ads" EntitySet="ads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ads_ToTable_1" Association="Model.FK_ads_ToTable_1">
+            <End Role="catagory" EntitySet="catagories" />
+            <End Role="ads" EntitySet="ads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cities_ToTable" Association="Model.FK_cities_ToTable">
+            <End Role="state" EntitySet="states" />
+            <End Role="cities" EntitySet="cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_state_ToTable" Association="Model.FK_state_ToTable">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="state" EntitySet="states" />
+          </AssociationSet>
+          <AssociationSet Name="FK_messages_ToTable" Association="Model.FK_messages_ToTable">
+            <End Role="user" EntitySet="users" />
+            <End Role="messages" EntitySet="messages" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="addre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="street" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="city" Type="Int32" />
+          <Property Name="state" Type="Int32" />
+          <Property Name="country" Type="Int32" />
+          <NavigationProperty Name="city1" Relationship="Model.FK_addres_ToTable" FromRole="addres" ToRole="cities" />
+          <NavigationProperty Name="state1" Relationship="Model.FK_addres_ToTable_1" FromRole="addres" ToRole="state" />
+          <NavigationProperty Name="Country1" Relationship="Model.FK_addres_ToTable_2" FromRole="addres" ToRole="Countries" />
+          <NavigationProperty Name="users" Relationship="Model.FK_user_ToTable" FromRole="addres" ToRole="user" />
+        </EntityType>
+        <EntityType Name="ad">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="image" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="activity" Type="Boolean" Nullable="false" />
+          <Property Name="user" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="catagory" Type="Int32" />
+          <NavigationProperty Name="user1" Relationship="Model.FK_ads_ToTable" FromRole="ads" ToRole="user" />
+          <NavigationProperty Name="catagory1" Relationship="Model.FK_ads_ToTable_1" FromRole="ads" ToRole="catagory" />
+        </EntityType>
+        <EntityType Name="catagory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="ads" Relationship="Model.FK_ads_ToTable_1" FromRole="catagory" ToRole="ads" />
+        </EntityType>
+        <EntityType Name="city">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="state" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="addres" Relationship="Model.FK_addres_ToTable" FromRole="cities" ToRole="addres" />
+          <NavigationProperty Name="state1" Relationship="Model.FK_cities_ToTable" FromRole="cities" ToRole="state" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="addres" Relationship="Model.FK_addres_ToTable_2" FromRole="Countries" ToRole="addres" />
+          <NavigationProperty Name="states" Relationship="Model.FK_state_ToTable" FromRole="Countries" ToRole="state" />
+        </EntityType>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="from" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="message1" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="user" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="user1" Relationship="Model.FK_messages_ToTable" FromRole="messages" ToRole="user" />
+        </EntityType>
+        <EntityType Name="state">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="country" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="addres" Relationship="Model.FK_addres_ToTable_1" FromRole="state" ToRole="addres" />
+          <NavigationProperty Name="cities" Relationship="Model.FK_cities_ToTable" FromRole="state" ToRole="cities" />
+          <NavigationProperty Name="Country1" Relationship="Model.FK_state_ToTable" FromRole="state" ToRole="Countries" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="address" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="addre" Relationship="Model.FK_user_ToTable" FromRole="user" ToRole="addres" />
+          <NavigationProperty Name="ads" Relationship="Model.FK_ads_ToTable" FromRole="user" ToRole="ads" />
+          <NavigationProperty Name="messages" Relationship="Model.FK_messages_ToTable" FromRole="user" ToRole="messages" />
+        </EntityType>
+        <Association Name="FK_addres_ToTable">
+          <End Role="cities" Type="Model.city" Multiplicity="0..1" />
+          <End Role="addres" Type="Model.addre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="addres">
+              <PropertyRef Name="city" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_addres_ToTable_1">
+          <End Role="state" Type="Model.state" Multiplicity="0..1" />
+          <End Role="addres" Type="Model.addre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="state">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="addres">
+              <PropertyRef Name="state" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_addres_ToTable_2">
+          <End Role="Countries" Type="Model.Country" Multiplicity="0..1" />
+          <End Role="addres" Type="Model.addre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="addres">
+              <PropertyRef Name="country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_ToTable">
+          <End Role="addres" Type="Model.addre" Multiplicity="1" />
+          <End Role="user" Type="Model.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="addres">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="address" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ads_ToTable">
+          <End Role="user" Type="Model.user" Multiplicity="1" />
+          <End Role="ads" Type="Model.ad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="ads">
+              <PropertyRef Name="user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ads_ToTable_1">
+          <End Role="catagory" Type="Model.catagory" Multiplicity="0..1" />
+          <End Role="ads" Type="Model.ad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="catagory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ads">
+              <PropertyRef Name="catagory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cities_ToTable">
+          <End Role="state" Type="Model.state" Multiplicity="1" />
+          <End Role="cities" Type="Model.city" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="state">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cities">
+              <PropertyRef Name="state" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_state_ToTable">
+          <End Role="Countries" Type="Model.Country" Multiplicity="1" />
+          <End Role="state" Type="Model.state" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="state">
+              <PropertyRef Name="country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_messages_ToTable">
+          <End Role="user" Type="Model.user" Multiplicity="1" />
+          <End Role="messages" Type="Model.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="messages">
+              <PropertyRef Name="user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="addres">
+            <EntityTypeMapping TypeName="Model.addre">
+              <MappingFragment StoreEntitySet="addres">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="country" ColumnName="country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ads">
+            <EntityTypeMapping TypeName="Model.ad">
+              <MappingFragment StoreEntitySet="ads">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="activity" ColumnName="activity" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="catagory" ColumnName="catagory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="catagories">
+            <EntityTypeMapping TypeName="Model.catagory">
+              <MappingFragment StoreEntitySet="catagory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cities">
+            <EntityTypeMapping TypeName="Model.city">
+              <MappingFragment StoreEntitySet="cities">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="state" ColumnName="state" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="Model.Country">
+              <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="messages">
+            <EntityTypeMapping TypeName="Model.message">
+              <MappingFragment StoreEntitySet="messages">
+                <ScalarProperty Name="from" ColumnName="from" />
+                <ScalarProperty Name="message1" ColumnName="message" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="states">
+            <EntityTypeMapping TypeName="Model.state">
+              <MappingFragment StoreEntitySet="state">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="country" ColumnName="country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="Model.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

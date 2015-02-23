@@ -1,0 +1,98 @@
+﻿@model MvcApplication1.Models.ad
+@{
+    Layout = "~/Views/Shared/user.cshtml";
+    ViewBag.title = "View Ad";
+}
+
+    <section id="body-container">
+        <div class="wrapper">
+            <div class="content" id="offer_active">
+                <div class="clr offerbody">
+                    <div class="offercontent fleft rel ">
+                        <div class="offercontentinner">
+                            <div class="clr offerheadinner pding15 pdingright20">
+                                <h1 class="brkword lheight28">@Model.title </h1>
+                            </div>
+                            <div class="offerdescription clr" id="offerdescription">
+                                <div class="overgallery normal nopopupview" id="bigImageContent">
+                                    <div class="layermax">
+                                        <div class="horizontal">
+                                            <div class="vertical">
+                                                <div class="tleft">
+                                                    <div class="clr">
+                                                        <div class="photospace rel" id="bigImage">
+                                                            @if(@Model.image== null)
+                                                            {
+                                                            <img width="100%" height="100%"  src="~/App_Data/uploads/no_pic_available.jpg"/>
+                                                            }
+                                                            else
+                                                            {
+                                                                <img width="100%" height="100%"  src="@(Model.image)"/>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clr">
+                                    <div class="clr" id="textContent">
+                                        <p class="pding10 lheight20 large">@Model.description</p>
+                                    </div>
+                                </div>
+                                <div class="pding15" id="offerbottombar">
+                                    <p class="pdingtop10 fitalic color-1 normal lheight16">&nbsp;</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offerbox fright rel zi2" id="offerbox">
+                        <div class="offeractions" id="offeractions">
+                            <div class="pdingbott20">
+                                <div class=" ab0">
+                                    <div class="pricelabel tcenter"><strong class="xxxx-large margintop7 block arranged">@Model.catagory1.type</strong></div>
+                                    <div class="userdatabox innerbox br3 bgfff rel">
+                                        <div class="userbox clr rel zi2 margintop10">
+                                            <span
+                                                class="icon user fleft"></span>
+                                            <p class="userdetails fleft marginleft15">
+                                                <span class="block color-5 brkword xx-large">@Model.user</span><span
+                                                    class="block"> </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="contactbox innerbox br3 bgfff rel">
+                                        <ul class="hidden ab6_show contact_methods full marginbott10 ">
+                                            <li class="link-phone clr rel {'path':'phone', 'id':'SBjJp', 'id_raw': '806816131'} atClickTracking contact-a cpointer"
+                                                data-rel="phone">
+                                                <div class="fleft"><span class="icon vmiddle inlblk mobile2">&nbsp;</span> </div>
+                                                <div class="clr fleft marginleft15 contactitem">
+                                                    <strong class="brkword xx-large lheight20 fnormal">@Model.user1.phone</strong>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="tcenter"></div>
+                                        <div class="rel">
+                                            <ul class="brbott-12" id="contact_methods">
+                                                <li class="hidden ab4_show full marginbott10 button big br3 cfff large link-phone rel {'path':'phone', 'id':'SBjJp', 'id_raw': '806816131'} atClickTracking contact-a cpointer"
+                                                    data-rel="phone"><span class="icon inlblk vtop b_phone4">&nbsp;</span>@Model.user1.phone</li>
+                                                <li class="clr rel hidden ab4_show">
+                                                    <div class="fleft"><span class="icon vmiddle inlblk mail2">&nbsp;</span> </div>
+                                                    <div class="clr fleft marginleft15 contactitem"></div>
+                                                </li>
+                                                <li class="ab4_hide ab6_hide clr">
+                                                    <div class="fleft"><span class="icon vmiddle inlblk mobile2"></span></div>
+                                                    <div class="clr fleft marginleft15 contactitem brkword"><strong>@Model.user1.phone</strong></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

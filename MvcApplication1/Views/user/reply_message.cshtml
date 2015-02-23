@@ -1,0 +1,39 @@
+﻿@model MvcApplication1.Models.message
+@{
+    Layout = "~/Views/Shared/user.cshtml";
+    ViewBag.title = "Relpy  Message";
+}
+<div class="wrapper clr">
+    <section class="container" id="body-container">
+        <div class="wrapper">
+            <div class="content">
+                  <div class="emptyads answers  rel">
+                <table width="520" border="1">
+                    <form action="/user/reply" method="post">
+                        <input type="hidden" name="username" value="@(ViewBag.username)" />
+                    <tr>
+                        <td width="100">To</td>
+                        <td width="500"><input type="text" name="email" disabled="disabled" value="@(Model.from)" /></td>
+                    </tr>
+                    <tr>
+                        <td width="100">Subject</td>
+                        <td width="500"><input tyep="text" name="subject" value"message from @Model.user"/> </td>
+                    </tr>
+                    <tr>
+                        <td width="100">Message</td>
+                        <td width="500"><textarea name="message" style="width:500px"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td width="100"></td>
+                        <td width="500">
+                            <input type="submit" value="Send"/>
+                            <a  style="margin:10px" href="/user/delete?id=@(Model.id)&username=@(ViewBag.username)" >Delete</a>
+                        </td>
+                    </tr>
+                    </form>
+                </table>
+                      </div>
+            </div>
+        </div>
+    </section>
+</div>

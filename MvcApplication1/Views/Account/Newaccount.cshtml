@@ -1,0 +1,280 @@
+@model MvcApplication1.Models.user
+@{
+    ViewBag.title = "Registration Form";
+    Layout = "~/Views/Shared/public.cshtml";
+}
+@section scriptforregistration
+{
+<script type="text/jscript">
+    $(document).ready(function () {
+        $('#succes_message').hide();
+        $('#Error_message').hide();
+    });
+   
+    $(function () {
+             
+        $('#addre_Country1_Id').change(function () {
+            //  debugger;
+            var id = $("#addre_Country1_Id :selected").val();
+            if (id != 0) {
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("StateList", "account")',
+                            data: { "mCountry": id },
+                            dataType: "json",
+                            beforeSend: function () {
+                                //  alert(id);
+                            },
+                            success: function (data) {
+                                var items = "";
+                                $.each(data, function (i, state) {
+                                    items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
+                                });
+                                $('#addre_state1_Id').html(items);
+
+                            },
+                            error: function (result) {
+
+                                alert('Service call failed: ' + result.status + ' Type :' + result.statusText);
+                            }
+                        });
+                    }
+                    else {
+                        var items = '<option value="">Select</option>';
+                        $('#addre_state1_Id').html(items);
+                    }
+        });
+
+        $('#addre_state1_Id').change(function () {
+            // debugger;
+            var id = $("#addre_state1_Id :selected").val();
+            if (id != 0) {
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("CityList", "account")',
+                    data: { "mState": id },
+                    dataType: "json",
+                    beforeSend: function () {
+                        //  alert(id);
+                    },
+                    success: function (data) {
+                        var items = "";
+                        $.each(data, function (i, city) {
+                            items += "<option value='" + city.Value + "'>" + city.Text + "</option>";
+                        });
+                        $('#addre_city1_Id').html(items);
+
+                    },
+                    error: function (result) {
+
+                        alert('Service call failed: ' + result.status + ' Type :' + result.statusText);
+                    }
+                });
+            }
+            else {
+                var items = '<option value="0">Select</option>';
+                $('#addre_city1_Id').html(items);
+            }
+        });
+
+        $('#check').on('click', function check_user() {
+            debugger;
+            var username = $("#username").val();
+            if (!(username.replace(/^\s+/, '').replace(/\s+$/, '') === '')) {
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("check", "account")',
+                    data: { "username": username },
+                    dataType: "json",
+                    beforeSend: function () {
+                        //alert(username);
+                    },
+                    success: function (data) {
+                        if (data == true) {
+                            //  alert(data);
+                            $('#succes_message').show();
+                            $('#Error_message').hide();
+                            return true;
+                        }
+                        else {
+                            debugger;
+                            //  alert(data);
+                            $('#succes_message').hide();
+                            $('#Error_message').show();
+                            return false;
+                        }
+                    },
+                    error: function (result) {
+                        alert('Service call failed: ' + result.status + ' Type :' + result.statusText);
+                    }
+                });
+            }
+        });
+        $("#mainForm").submit(function (event) {
+            debugger;
+            var username = $("#username").val();
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("check", "account")',
+                    data: { "username": username },
+                    dataType: "json",
+                    beforeSend: function () {
+                        //alert(username);
+                    },
+                    success: function (data) {
+                        if (data == false) {
+                            event.preventDefault(); // if you want to disable the action
+                            return false;
+                            $('#Error_message').show();
+                        }
+                    },
+                    error: function (result) {
+                        alert('Service call failed: ' + result.status + ' Type :' + result.statusText);
+                    }
+                });
+        });
+    });
+
+</script>
+    }
+
+<section id="body-container">
+    <h2 class="large fbold c62 marginbott10">Create an account</h2>
+    <div class="halfgrid bre3 br4 access accessbox">
+        <form novalidate class="default access type2" action="/account/register" id="mainForm" method="post" onsubmit="check(this)">
+            <div class="fleft half">
+                <div class="inner">
+
+                    <div class="fblock clr" id="emailDiv">
+                        <div class="label fleft c000 fbold tright">
+                            @Html.LabelFor(m => m.email)
+                        </div>
+                        <div class="area clr">
+                            <div class="fleft rel focusbox smallshadow">
+                                @Html.TextBoxFor(m => m.email, new { maxlength = 30, @class = "light br3" })
+                                <span class="status icon vmiddle inlblk dnone"></span>
+                                @Html.ValidationMessageFor(m => m.email)
+                                <p class="desc errorboxContainer"><small>Enter your email</small> </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fblock clr " id="unameDiv">
+                        <div class="label fleft c000 fbold tright">
+                            @Html.LabelFor(m => m.username)
+                        </div>
+                        <div class="area clr">
+                            <div class="fleft rel focusbox smallshadow">
+                                @Html.TextBoxFor(m => m.username, new { maxlength = 50, @class = "light br3", style = "width: 200px;" })
+                                <input type="button" value="check" id="check" />
+                                <span class="status icon vmiddle inlblk dnone"></span>
+                                @Html.ValidationMessageFor(m => m.username)
+                                <p class="desc errorboxContainer"><small>Enter Username</small> </p>
+                            </div>
+                            <div id="Error_message" >Sorry The User Name Is not Available Try Another</div>
+                            <div id="succes_message" >Congregulation The User Name Is Available </div>
+                        </div>
+                    </div>
+                    <div class="fblock clr" id="pass1Div">
+                        <div class="label fleft c000 fbold tright">
+                            @Html.LabelFor(m => m.password)
+                        </div>
+                        <div class="area clr">
+                            <div class="fleft rel focusbox smallshadow">
+                                @Html.PasswordFor(m => m.password, new { maxlength = 50, value = ViewBag.Selpwd, @class = "light br3" })
+                                <span class="status icon vmiddle inlblk dnone"></span>
+                                @Html.ValidationMessageFor(m => m.password)
+                                <p class="desc errorboxContainer"><small>Enter your password</small> </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fblock clr" id="name2Div">
+                        <div class="label fleft c000 fbold tright">
+                            @Html.LabelFor(m => m.name)
+                        </div>
+                        <div class="area clr">
+                            <div class="fleft rel focusbox smallshadow">
+                                @Html.TextBoxFor(m => m.name, new { maxlength = 50, value = ViewBag.Selpwd, @class = "light br3" })
+                                <span class="status icon vmiddle inlblk dnone"></span>
+                                @Html.ValidationMessageFor(m => m.name)
+                                <p class="desc errorboxContainer"><small id="">Enter your name</small> </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fleft half">
+                <div class="inner">
+                    <div class="fblock clr" id="countryDiv">
+                        <div class="label fleft c000 fbold tright">
+                            @Html.LabelFor(m => m.addre.Country1)
+                        </div>
+                        <div class="area clr">
+                            <div class="fleft rel focusbox smallshadow">
+                                @Html.DropDownListFor(m => m.addre.Country1.Id, new SelectList(ViewBag.Country, "ID", "Name", ViewBag.SelCountry), new { @class = "light br3 ", style = "width:310px", name = "country" })
+                                <span class="status icon vmiddle inlblk dnone"></span>
+                                @Html.ValidationMessageFor(m => m.addre.Country1.Id)
+                                <p class="desc errorboxContainer"><small id="">Select your Country</small> </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fblock clr" id="stateDiv">
+                        <div class="label fleft c000 fbold tright">
+                            @Html.LabelFor(m => m.addre.state1)
+                        </div>
+                        <div class="area clr">
+                            <div class="fleft rel focusbox smallshadow">
+                                @Html.DropDownListFor(m => m.addre.state1.Id, new SelectList(ViewBag.State, "ID", "Name", ViewBag.SelState), new { @class = "light br3 ", style = "width:310px", name = "state" })
+                                <span class="status icon vmiddle inlblk dnone"></span>
+                                @Html.ValidationMessageFor(m => m.addre.state1)
+                                <p class="desc errorboxContainer"><small id="">Select your State</small> </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fblock clr" id="state2Div">
+                        <div class="label fleft c000 fbold tright">
+                            @Html.LabelFor(m => m.addre.city1)
+                        </div>
+                        <div class="area clr">
+                            <div class="fleft rel focusbox smallshadow">
+                                @Html.DropDownListFor(m => m.addre.city1.Id, new SelectList(ViewBag.City, "ID", "Name", ViewBag.SelCity), new { style = "width:310px", name = "city" })
+                                <span class="status icon vmiddle inlblk dnone"></span>
+                                @Html.ValidationMessageFor(m => m.addre.city1.Id)
+                                <p class="desc errorboxContainer"><small id="">Select your city</small> </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fblock clr" id="phoneDiv">
+                        <div class="label fleft c000 fbold tright">
+                            @Html.LabelFor(m => m.phone)
+                            <label class="fbold c000">Phone<em class="cc914">*</em></label>
+                        </div>
+                        <div class="area clr">
+                            <div class="fleft rel focusbox smallshadow">
+                                @Html.TextBoxFor(m => m.phone, new { maxlength = 15 })
+                                <span class="status icon vmiddle inlblk dnone"></span>
+                                @Html.ValidationMessageFor(m => m.phone)
+                                <p class="desc errorboxContainer"><small id="">Enter your Phone #</small> </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="inner">
+                <div class="fblock">
+                    <div class="area clr margintop15">
+                        <p>
+                            <span class="button big br3 large">
+                                <input class="cfff" value="Create" id="se_userSignIn" type="submit" onclick="">
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
