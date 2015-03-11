@@ -18,10 +18,10 @@ namespace MvcApplication1.Models
       
         public int Id { get; set; }
         [Required(ErrorMessage = "Please Enter Ad Titles")]
-        [StringLength(15, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         public string title { get; set; }
         [Required(ErrorMessage = "Please Enter Ad Description")]
-        [StringLength(200, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 30)]
+        [StringLength(1000, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 30)]
         public string description { get; set; }
         public string image { get; set; }
         public Nullable<System.DateTime> date { get; set; }
