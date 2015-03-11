@@ -232,6 +232,7 @@
     <Content Include="App_Data\app-data_log.ldf">
       <DependentUpon>app-data.mdf</DependentUpon>
     </Content>
+    <Content Include="Images\no_pic_available.jpg" />
     <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
